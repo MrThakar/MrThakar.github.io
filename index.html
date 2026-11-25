@@ -84,6 +84,12 @@ header.top { padding-block: 48px 56px; border-bottom: 1px solid var(--rule); }
 .band { padding-block: 64px; border-bottom: 1px solid var(--rule); }
 .band-head { display: grid; grid-template-columns: 220px 1fr; gap: 32px; margin-bottom: 32px; }
 .band-head .idx { display: grid; gap: 6px; align-content: start; }
+@media screen {
+  .band-head .idx > .label { font-size: 13px; font-weight: 500; color: var(--ink); letter-spacing: .1em; line-height: 1.4; }
+  .band-head .idx > .label::before { content: ""; display: block; width: 28px; height: 3px; border-radius: 2px; background: var(--accent); margin-bottom: 12px; }
+  .band-head .idx .status { font-size: 12.5px; margin-top: 2px; }
+  .also > .label, .sky .label { font-size: 13px; color: var(--ink); letter-spacing: .1em; }
+}
 .band-head h2 { font-size: clamp(30px, 4vw, 44px); font-weight: 700; letter-spacing: -0.02em; line-height: 1.02; }
 .band-head .sum { margin-top: 12px; color: var(--muted); max-width: 62ch; font-size: 16.5px; }
 .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 16px; }

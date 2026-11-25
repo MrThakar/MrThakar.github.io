@@ -174,8 +174,12 @@ header.top { padding-block: 48px 56px; border-bottom: 1px solid var(--rule); }
 
 footer { padding-block: 48px 64px; }
 .foot { display: grid; grid-template-columns: 220px 1fr; gap: 32px; }
-.skills { display: grid; gap: 10px; font-size: 14.5px; }
-.skills div { display: grid; grid-template-columns: 110px 1fr; gap: 12px; }
+.skills { display: grid; gap: 14px; font-size: 16.5px; }
+@media screen {
+  .skills .label { font-size: 12.5px; color: var(--accent-ink); letter-spacing: .1em; }
+  .foot > .label { font-size: 12.5px; color: var(--ink); letter-spacing: .1em; }
+}
+.skills div { display: grid; grid-template-columns: 124px 1fr; gap: 12px; align-items: baseline; }
 .credit { margin-top: 28px; font: 400 11.5px/1.5 var(--mono); color: var(--muted); }
 
 /* ---------- Motion: scroll-driven, content visible without it ---------- */
@@ -535,7 +539,7 @@ footer { padding-block: 48px 64px; }
     <div>
       <div class="skills">
         <div><span class="label">Languages</span><span>Python, C++, TypeScript, JavaScript, SQL</span></div>
-        <div><span class="label">ML / AI</span><span>PyTorch, ONNX Runtime, quantization, scikit-learn, Azure OpenAI, LLM structured output</span></div>
+        <div><span class="label">AI / ML</span><span>PyTorch, ONNX Runtime, quantization, scikit-learn, Azure OpenAI, LLM structured output</span></div>
         <div><span class="label">Software</span><span>React, FastAPI, WebRTC, WebSocket, Docker, GitHub Actions, pytest, OpenCV</span></div>
       </div>
       <p class="credit">Detection image from the Roboflow Traffic Cone dataset v3 (CC BY 4.0), test split. All numbers are from the linked repositories.</p>

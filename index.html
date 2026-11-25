@@ -6,31 +6,25 @@
 <style>
 /* Layout: a single engineering spec sheet. Each project is a band: label rail on the left, evidence (image, chart, diagram) on the right. */
 :root {
-  --bg: #f2f3f5;
-  --surface: #ffffff;
-  --ink: #0f1217;
-  --muted: #5b6574;
-  --rule: #d9dde3;
-  --faint: #e9ecf0;
-  --accent: #e2590b;
-  --accent-ink: #b8460a;
-  --accent-wash: #fdeee5;
+  /* Single dark theme: near-black ground; each project carries its own accent. */
+  --bg: #0c0e11;
+  --surface: #14171c;
+  --ink: #e9ecf0;
+  --muted: #98a2b0;
+  --rule: #272c34;
+  --faint: #1b1f25;
+  --accent: #ff7b33;
+  --accent-ink: #ff9a5e;
+  --accent-wash: #2a1a10;
+  --glow: rgba(255, 123, 51, 0.34);
   --display: "Schibsted Grotesk", "Helvetica Neue", Arial, sans-serif;
   --body: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
   --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg: #0c0e11; --surface: #14171c; --ink: #e9ecf0; --muted: #98a2b0;
-    --rule: #272c34; --faint: #1b1f25; --accent: #ff7b33; --accent-ink: #ff9a5e; --accent-wash: #2a1a10;
-    color-scheme: dark;
-  }
-}
-:root[data-theme="dark"] {
-  --bg: #0c0e11; --surface: #14171c; --ink: #e9ecf0; --muted: #98a2b0;
-  --rule: #272c34; --faint: #1b1f25; --accent: #ff7b33; --accent-ink: #ff9a5e; --accent-wash: #2a1a10;
   color-scheme: dark;
 }
+/* Per-project accents */
+.band.inv { --accent: #34d399; --accent-ink: #6ee7b7; --accent-wash: #0d2620; }
+.band.dare { --accent: #4cb8ff; --accent-ink: #8fd3ff; --accent-wash: #0c2131; }
 
 * { box-sizing: border-box; }
 body {
@@ -54,7 +48,10 @@ p { margin: 0; }
 .num { font-variant-numeric: tabular-nums; }
 
 /* ---------- Stage: portrait with the name set across it ---------- */
-.stage { position: relative; display: grid; justify-items: center; padding-top: 48px; border-bottom: 1px solid var(--rule); overflow: hidden; }
+.stage { position: relative; display: grid; justify-items: center; padding-top: 48px; border-bottom: 1px solid var(--rule); overflow: hidden;
+  background:
+    radial-gradient(38% 62% at 50% 72%, var(--glow), transparent 72%);
+}
 .me { display: block; width: min(440px, 78vw); height: auto; }
 .hero-name {
   position: absolute; left: 0; right: 0; bottom: 7%; margin: 0; text-align: center;
@@ -97,6 +94,8 @@ header.top { padding-block: 48px 56px; border-bottom: 1px solid var(--rule); }
 .stat b { font: 700 clamp(28px, 3.4vw, 40px)/1 var(--display); letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
 .stat b em { font-style: normal; color: var(--accent); }
 .stat span { font-size: 13.5px; color: var(--muted); line-height: 1.35; }
+.split .stat b { font-size: clamp(24px, 2.6vw, 32px); }
+.split .stat { padding-right: 20px; }
 
 .note { font-size: 14.5px; color: var(--muted); max-width: 64ch; border-left: 2px solid var(--accent); padding-left: 14px; }
 .note strong { color: var(--ink); font-weight: 600; }
@@ -140,13 +139,13 @@ header.top { padding-block: 48px 56px; border-bottom: 1px solid var(--rule); }
 .n.dim text { fill: var(--muted); }
 .e { fill: none; stroke: var(--muted); stroke-width: 1.2; opacity: .75; }
 .e.hot { stroke: var(--accent); opacity: 1; stroke-width: 1.6; }
-.el { fill: var(--muted); font: 400 10.5px var(--mono); }
+.el { fill: var(--muted); font: 400 9px var(--mono); }
 .el.hot { fill: var(--accent-ink); }
 .ah { fill: var(--muted); }
 .ah.hot { fill: var(--accent); }
 .tag-mine { fill: var(--accent-ink); font: 500 10px var(--mono); letter-spacing: .08em; }
 
-.split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 40px; margin-top: 32px; align-items: start; }
+.split { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 40px; margin-top: 32px; align-items: start; }
 .bullets { margin: 0; padding: 0; list-style: none; display: grid; gap: 10px; font-size: 15px; }
 .bullets li { padding-left: 18px; position: relative; }
 .bullets li::before { content: ""; position: absolute; left: 0; top: .7em; width: 8px; height: 1.5px; background: var(--accent); }
@@ -210,7 +209,7 @@ footer { padding-block: 48px 64px; }
   .wrap { max-width: none; padding: 0; }
   .label { font-size: 6.6pt; }
   .print-only { display: inline; }
-  .stage { position: absolute; top: 0; right: 0; width: 1.25in; padding: 0; border: 0; overflow: visible; }
+  .stage { position: absolute; top: 0; right: 0; width: 1.25in; padding: 0; border: 0; overflow: visible; background: none; }
   .me { width: 1.25in; }
   .hero-name { display: none; }
   header.top { padding: 0 1.4in 9pt 0; position: relative; }
@@ -318,6 +317,8 @@ footer { padding-block: 48px 64px; }
   .top-grid { grid-template-columns: 1fr 3.5in !important; }
   .top h1 { font-size: 25pt !important; white-space: nowrap; }
   .lede { font-size: 8.8pt !important; margin-top: 4pt !important; }
+  .band.inv { --accent: #0f9f6e; --accent-ink: #0b7a55; --accent-wash: #e3f6ee; }
+  .band.dare { --accent: #1f8fd6; --accent-ink: #156ea6; --accent-wash: #e4f2fb; }
 }
 </style></head><body>
 
@@ -390,7 +391,7 @@ footer { padding-block: 48px 64px; }
 </section>
 
 <!-- Invoice Review -->
-<section class="band" aria-labelledby="inv-h">
+<section class="band inv" aria-labelledby="inv-h">
   <div class="band-head">
     <div class="idx"><span class="label">Applied AI · Finance</span><a class="repo" href="https://github.com/MrThakar/invoice-review">MrThakar/invoice-review</a></div>
     <div>
@@ -410,15 +411,15 @@ footer { padding-block: 48px 64px; }
       <path class="e draw" d="M128 95 C 160 95 160 145 196 145" marker-end="url(#a1)"/>
       <path class="e draw" d="M376 45 C 410 45 410 95 444 95" marker-end="url(#a1)"/>
       <path class="e draw" d="M376 145 C 410 145 410 95 444 95" marker-end="url(#a1)"/>
-      <path class="e hot draw" d="M594 95 H 636" marker-end="url(#a2)"/>
-      <path class="e hot draw" d="M776 95 H 818" marker-end="url(#a2)"/>
+      <path class="e hot draw" d="M626 95 H 664" marker-end="url(#a2)"/>
+      <path class="e hot draw" d="M818 95 H 852" marker-end="url(#a2)"/>
 
       <g class="n"><rect x="10" y="70" width="118" height="50" rx="5"/><text x="69" y="92" text-anchor="middle">Upload</text><text class="sub" x="69" y="108" text-anchor="middle">PDF or photo</text></g>
       <g class="n"><rect x="198" y="20" width="178" height="50" rx="5"/><text x="287" y="42" text-anchor="middle">Document Intelligence</text><text class="sub" x="287" y="58" text-anchor="middle">fields + confidence</text></g>
       <g class="n"><rect x="198" y="120" width="178" height="50" rx="5"/><text x="287" y="142" text-anchor="middle">Azure OpenAI</text><text class="sub" x="287" y="158" text-anchor="middle">classify + strict schema</text></g>
-      <g class="n"><rect x="446" y="70" width="148" height="50" rx="5"/><text x="520" y="92" text-anchor="middle">Merge</text><text class="sub" x="520" y="108" text-anchor="middle">each field keeps its source</text></g>
-      <g class="n mine"><rect x="638" y="70" width="138" height="50" rx="5"/><text x="707" y="92" text-anchor="middle">Finance rules</text><text class="sub" x="707" y="108" text-anchor="middle">GST/HST, totals, dupes</text></g>
-      <g class="n mine"><rect x="820" y="70" width="150" height="50" rx="5"/><text x="895" y="92" text-anchor="middle">Human review</text><text class="sub" x="895" y="108" text-anchor="middle">approve / reject</text></g>
+      <g class="n"><rect x="446" y="70" width="180" height="50" rx="5"/><text x="536" y="92" text-anchor="middle">Merge</text><text class="sub" x="536" y="108" text-anchor="middle">each field keeps its source</text></g>
+      <g class="n mine"><rect x="666" y="70" width="152" height="50" rx="5"/><text x="742" y="92" text-anchor="middle">Finance rules</text><text class="sub" x="742" y="108" text-anchor="middle">GST/HST, totals, dupes</text></g>
+      <g class="n mine"><rect x="854" y="70" width="118" height="50" rx="5"/><text x="913" y="92" text-anchor="middle">Human review</text><text class="sub" x="913" y="108" text-anchor="middle">approve / reject</text></g>
     </svg>
   </div>
 
@@ -433,7 +434,7 @@ footer { padding-block: 48px 64px; }
 </section>
 
 <!-- DARE Beluga -->
-<section class="band" aria-labelledby="dare-h">
+<section class="band dare" aria-labelledby="dare-h">
   <div class="band-head">
     <div class="idx"><span class="label">Robotics · Full stack</span><span class="status">In progress</span></div>
     <div>
